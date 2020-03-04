@@ -21,6 +21,31 @@ myApp.controllers = {
 
       element.show && element.show(); // Fix ons-fab in Safari.
     });
+  },
+
+  ////////////////////////////
+  // New Task Page Controller //
+  ////////////////////////////
+  newTaskPage: function(page) {
+    Array.prototype.forEach.call(page.querySelectorAll('[component="button/save-task"]'), function(element) {
+      element.onclick = function() {
+          let titre = page.querySelector('#title-input').value;
+          if (titre) {
+            myApp.services.tasks.create(
+              {
+                title: titre,
+                category: page.querySelector('#category-input').value,
+                description: page.querySelector('#description-input').value,
+                highlight: page.querySelector('#highlight-input').checked,
+                urgent: page.querySelector('#urgent-input').checked
+              }
+            );
+            document.querySelector('#myNavigator').popPage();
+          } else {
+            ons.notification.alert('La tâche entrée n\'a pas de nom.');
+          }
+      }
+    });
   }
 
 };
