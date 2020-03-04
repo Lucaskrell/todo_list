@@ -1,4 +1,9 @@
 <ons-page id="corbeille">
   <ons-list id="corb">
   </ons-list>
+  <ons-if platform="android">
+    <ons-fab position="left bottom" component="button/vider-corb">
+        <ons-icon icon="fa-minus-square"></ons-icon>
+    </ons-fab>
+</ons-if>
 </ons-page>

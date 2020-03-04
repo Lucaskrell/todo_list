@@ -30,11 +30,25 @@ myApp.services = {
       // Store data within the element.
       taskItem.data = data;
 
+      taskItem.data.onCheckboxChange = function(event) {
+        document.querySelector('#completed-list').appendChild(taskItem);
+      };
+
+      taskItem.addEventListener('change', taskItem.data.onCheckboxChange);
+
       // Insert urgent tasks at the top and non urgent tasks at the bottom.
       var pendingList = document.querySelector('#pending-list');
       pendingList.insertBefore(taskItem, taskItem.data.urgent ? pendingList.firstChild : null);
-    },
 
+      taskItem.querySelector('.right').onclick = function() {
+        if (taskItem.parentElement.id === 'corb') {
+          taskItem.remove();
+        } else {
+          taskItem.removeEventListener('change', taskItem.data.onCheckboxChange);
+          document.querySelector('#corb').appendChild(taskItem);
+        }
+      };
+    },
   },
 
   ////////////////////////
