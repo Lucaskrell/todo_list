@@ -45,7 +45,6 @@ myApp.controllers = {
                 title: titre,
                 category: page.querySelector('#category-input').value,
                 description: page.querySelector('#description-input').value,
-                highlight: page.querySelector('#highlight-input').checked,
                 urgent: page.querySelector('#urgent-input').checked
               }
             );
