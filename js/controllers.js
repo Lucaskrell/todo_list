@@ -23,6 +23,16 @@ myApp.controllers = {
     });
   },
 
+
+  menuPage: function(page) {
+  // Set functionality for 'No Category' and 'All' default categories respectively.
+  myApp.services.categories.bindOnCheckboxChange(page.querySelector('#default-category-list ons-list-item[category-id=""]'));
+  myApp.services.categories.bindOnCheckboxChange(page.querySelector('#default-category-list ons-list-item:not([category-id])'));
+
+  // Change splitter animation depending on platform.
+  document.querySelector('#mySplitter').left.setAttribute('animation', ons.platform.isAndroid() ? 'overlay' : 'reveal');
+},
+
   ////////////////////////////
   // New Task Page Controller //
   ////////////////////////////
@@ -39,6 +49,8 @@ myApp.controllers = {
                 urgent: page.querySelector('#urgent-input').checked
               }
             );
+            document.querySelector('#default-category-list ons-list-item ons-radio').checked = true;
+          document.querySelector('#default-category-list ons-list-item').updateCategoryView();
             document.querySelector('#myNavigator').popPage();
           } else {
             ons.notification.alert('La tâche entrée n\'a pas de nom.');
@@ -60,5 +72,5 @@ myApp.controllers = {
       };
     });
   }
-  
+
 };
