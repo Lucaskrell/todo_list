@@ -59,6 +59,14 @@ myApp.services = {
           document.querySelector('#corb').appendChild(taskItem);
         }
       }
+    },
+
+    vidercorb: function(list) {
+      if(list.children.length > 0) {
+        while (list.firstChild) {
+          list.removeChild(list.firstChild);
+        }
+      }
     }
 
   }

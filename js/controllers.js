@@ -55,9 +55,7 @@ myApp.controllers = {
       element.onclick = function() {
         let list = page.querySelector('[component="list/tasks-corbeille"]');
         if(list.children.length > 0) {
-          while (list.firstChild) {
-            list.removeChild(list.firstChild);
-          }
+          myApp.services.tasks.vidercorb(list);
         }
       };
     });
