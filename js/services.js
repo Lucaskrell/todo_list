@@ -30,86 +30,36 @@ myApp.services = {
       // Store data within the element.
       taskItem.data = data;
 
+      window.localStorage.setItem(data.title, taskItem);
+
       taskItem.data.onCheckboxChange = function(event) {
         document.querySelector('#completed-list').appendChild(taskItem);
       };
 
       taskItem.addEventListener('change', taskItem.data.onCheckboxChange);
 
+      taskItem.querySelector('.right').onclick = function() {
+        myApp.services.tasks.remove(taskItem);
+      };
+
       // Insert urgent tasks at the top and non urgent tasks at the bottom.
       var pendingList = document.querySelector('#pending-list');
       pendingList.insertBefore(taskItem, taskItem.data.urgent ? pendingList.firstChild : null);
+    },
 
-      taskItem.querySelector('.right').onclick = function() {
+    remove: function(taskItem) {
+      taskItem.querySelector('.right').onclick = function(event) {
+        console.log(taskItem.parentElement.id);
         if (taskItem.parentElement.id === 'corb') {
+          taskItem.removeEventListener('change', taskItem.data.onCheckboxChange);
+          window.localStorage.removeItem(taskItem.title);
           taskItem.remove();
         } else {
-          taskItem.removeEventListener('change', taskItem.data.onCheckboxChange);
+          taskItem.setAttribute('class', 'deleted-tasks');
           document.querySelector('#corb').appendChild(taskItem);
         }
-      };
-    },
-  },
-
-  ////////////////////////
-  // Initial Data Service //
-  ////////////////////////
-  fixtures: [
-    {
-      title: 'Download OnsenUI',
-      category: 'Programming',
-      description: 'Some description.',
-      highlight: false,
-      urgent: false
-    },
-    {
-      title: 'Install Monaca CLI',
-      category: 'Programming',
-      description: 'Some description.',
-      highlight: false,
-      urgent: false
-    },
-    {
-      title: 'Star Onsen UI repo on Github',
-      category: 'Super important',
-      description: 'Some description.',
-      highlight: false,
-      urgent: false
-    },
-    {
-      title: 'Register in the community forum',
-      category: 'Super important',
-      description: 'Some description.',
-      highlight: false,
-      urgent: false
-    },
-    {
-      title: 'Send donations to Fran and Andreas',
-      category: 'Super important',
-      description: 'Some description.',
-      highlight: false,
-      urgent: false
-    },
-    {
-      title: 'Profit',
-      category: '',
-      description: 'Some description.',
-      highlight: false,
-      urgent: false
-    },
-    {
-      title: 'Visit Japan',
-      category: 'Travels',
-      description: 'Some description.',
-      highlight: false,
-      urgent: false
-    },
-    {
-      title: 'Enjoy an Onsen with Onsen UI team',
-      category: 'Personal',
-      description: 'Some description.',
-      highlight: false,
-      urgent: false
+      }
     }
-  ]
+
+  }
 };

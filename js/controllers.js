@@ -21,15 +21,6 @@ myApp.controllers = {
 
       element.show && element.show(); // Fix ons-fab in Safari.
     });
-
-    // Array.prototype.forEach.call(page.querySelectorAll('[component="button/vider-corb"]'), function(element) {
-    //   element.onclick = function() {
-    //     // if (element.parentElement.id === 'corb') {
-    //     //   console.log('da');
-    //     // }
-    //     console.log('da');
-    //   };
-    // });
   },
 
   ////////////////////////////
@@ -55,4 +46,21 @@ myApp.controllers = {
       }
     });
   },
+
+  ////////////////////////////
+  // Corbeille Page Controller //
+  ////////////////////////////
+  corbeille: function(page) {
+    Array.prototype.forEach.call(page.querySelectorAll('[component="button/vider-corb"]'), function(element) {
+      element.onclick = function() {
+        let list = page.querySelector('[component="list/tasks-corbeille"]');
+        if(list.children.length > 0) {
+          while (list.firstChild) {
+            list.removeChild(list.firstChild);
+          }
+        }
+      };
+    });
+  }
+  
 };
