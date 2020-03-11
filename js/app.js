@@ -23,6 +23,9 @@ document.addEventListener('init', function(event) {
         highlight: false,
         urgent: true
       });
+      //for (var i=-1; i<localStorage.length; i++) {
+        //myApp.services.tasks.create(localStorage.getItem(localStorage.key(i)));
+      //}
     }
   }
 });
