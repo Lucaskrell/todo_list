@@ -361,7 +361,7 @@ h4, h5, h6 {
       0 2px 4px -1px rgba(0, 0, 0, .4);
 }
 :checked + .switch--material__toggle {
-  background-color: #dc5236;
+  background-color: #dc5000;
   box-shadow: none;
 }
 :checked + .switch--material__toggle > .switch--material__handle {
