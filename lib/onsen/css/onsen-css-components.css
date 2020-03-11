@@ -361,12 +361,12 @@ h4, h5, h6 {
       0 2px 4px -1px rgba(0, 0, 0, .4);
 }
 :checked + .switch--material__toggle {
-  background-color: #77c2bb;
+  background-color: #dc5236;
   box-shadow: none;
 }
 :checked + .switch--material__toggle > .switch--material__handle {
   left: 16px;
-  background-color: #009688;
+  background-color: #dc5236;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14),
       0 1px 5px 0 rgba(0, 0, 0, .12),
       0 3px 1px -2px rgba(0, 0, 0, .2);
@@ -392,7 +392,7 @@ h4, h5, h6 {
   box-shadow: 0 0 0 14px rgba(0, 0, 0, .12);
 }
 :checked + .switch--material__toggle > .switch--active__handle:before {
-  box-shadow: 0 0 0 14px alpha(#009688, 0.2);
+  box-shadow: 0 0 0 14px alpha(#dc5236, 0.2);
 }
 .switch--material__touch {
   position: absolute;
@@ -1034,7 +1034,7 @@ h4, h5, h6 {
   border-bottom: 0;
   box-shadow: 0 1px 5px rgba(0, 0, 0, .3);
   padding: 0;
-  background-color: #009688;
+  background-color: #dc5236;
   background-size: 0;
 }
 /*~
@@ -2457,7 +2457,7 @@ h4, h5, h6 {
 }
 .tabbar--material {
   background: none;
-  background-color: #009688;
+  background-color: #dc5236;
   border-bottom-width: 0;
   box-shadow:
     0 4px 2px -2px rgba(0, 0, 0, .14),
@@ -3017,8 +3017,8 @@ h4, h5, h6 {
   background-color: transparent;
 }
 :checked + .checkbox--material__checkmark:before {
-  border: 2px solid #009688;
-  background-color: #009688;
+  border: 2px solid #dc5236;
+  background-color: #dc5236;
   -webkit-transition: background-color 0.1s linear, border-color 0.1s linear;
   transition: background-color 0.1s linear, border-color 0.1s linear;
 }
@@ -3273,8 +3273,8 @@ h4, h5, h6 {
   transition: opacity 0.25s ease-out, transform 0.1s ease-out, -webkit-transform 0.1s ease-out;
 }
 .radio-button--material__input:checked:before {
-  box-shadow: 0 0 0 14px #009688;
-  background-color: #009688;
+  box-shadow: 0 0 0 14px #dc5236;
+  background-color: #dc5236;
 }
 .radio-button--material__input:active:before {
   opacity: .15;
@@ -3312,7 +3312,7 @@ h4, h5, h6 {
 }
 :checked + .radio-button--material__checkmark:before {
   background: transparent;
-  border: 2px solid #009688;
+  border: 2px solid #dc5236;
 }
 .radio-button--material__input + .radio-button__checkmark:after {
   background: #717171;
@@ -3322,7 +3322,7 @@ h4, h5, h6 {
 }
 :checked + .radio-button--material__checkmark:after {
   opacity: 1;
-  background: #009688;
+  background: #dc5236;
   -webkit-transform: scale(1);
           transform: scale(1);
 }
@@ -5905,7 +5905,7 @@ h4, h5, h6 {
   font-size: 25px;
   line-height: 56px;
   color: #ffffff;
-  background-color: #009688;
+  background-color: #dc5236;
   box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .14),
       0 1px 10px 0 rgba(0, 0, 0, .12),
       0 2px 4px -1px rgba(0, 0, 0, .4);
@@ -5916,7 +5916,7 @@ h4, h5, h6 {
   box-shadow: 0 8px 10px 1px rgba(0, 0, 0, .14),
       0 3px 14px 2px rgba(0, 0, 0, .12),
       0 5px 5px -3px rgba(0, 0, 0, .4);
-  background-color: rgba(0, 150, 136, .85);
+  background-color: #dc5000;
   -webkit-transition: all 0.2s ease;
   transition: all 0.2s ease;
 }
