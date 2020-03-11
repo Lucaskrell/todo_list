@@ -1,11 +1,11 @@
 <ons-page id="detailsTaskPage">
     <ons-toolbar>
         <div class="left"><ons-back-button>Todos</ons-back-button></div>
-        <div class="center">Modifier une tâche</div>
+        <div class="center">Details d'une tâche</div>
         <div class="right">
             <ons-toolbar-button component="button/save-task">
                 <ons-if platform="android">
-                    <ons-icon icon="md-save"></ons-icon>
+                    <ons-icon icon="fa-save"></ons-icon>
                 </ons-if>
                 <ons-if platform="ios other">
                     Save
@@ -13,7 +13,8 @@
             </ons-toolbar-button>
         </div>
     </ons-toolbar>
-    <br>
+
+    <ons-list-title>Modifier une tâche</ons-list-title>
     <ons-list>
         <ons-list-item modifier="nodivider">
             <ons-if platform="ios other" class="left left-label">
@@ -41,7 +42,7 @@
         </ons-list-item>
     </ons-list>
 
-    <ons-list-title>Other options</ons-list-title>
+    <ons-list-title>Autres options...</ons-list-title>
     <ons-list>
         <ons-list-item modifier="nodivider">
             <label class="center" for="inner-urgent-input">

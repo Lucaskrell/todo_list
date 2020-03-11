@@ -4636,7 +4636,7 @@ h4, h5, h6 {
   pointer-events: none;
 }
 .text-input--material__label--active {
-  color: #009688;
+  color: #dc5236;
   -webkit-transform: translate(0, -75%) scale(0.75);
           transform: translate(0, -75%) scale(0.75);
   -webkit-transform-origin: left top;
@@ -4647,9 +4647,9 @@ h4, h5, h6 {
   transition: transform 0.1s ease-in, color 0.1s ease-in, -webkit-transform 0.1s ease-in;
 }
 .text-input--material:focus {
-  background-image: -webkit-linear-gradient(#009688, #009688),
+  background-image: -webkit-linear-gradient(#dc5236, #dc5236),
     -webkit-linear-gradient(bottom, transparent 1px, #afafaf 1px);
-  background-image: linear-gradient(#009688, #009688),
+  background-image: linear-gradient(#dc5236, #dc5236),
     linear-gradient(to top, transparent 1px, #afafaf 1px);
   -webkit-animation: material-text-input-animate 0.3s forwards;
           animation: material-text-input-animate 0.3s forwards;

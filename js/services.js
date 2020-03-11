@@ -81,10 +81,10 @@ myApp.services = {
     },
 
     vidercorb: function(list) {
-      if(list.children.length > 0) {
+      if(list.children.length > 0 && list.firstChild) {
         while (list.firstChild) {
-          list.removeChild(list.firstChild);
           window.localStorage.removeItem(list.firstChild.data.title);
+          list.removeChild(list.firstChild);
         }
       }
     },
