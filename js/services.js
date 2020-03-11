@@ -41,7 +41,20 @@ myApp.services = {
       taskItem.querySelector('.right').onclick = function() {
         myApp.services.tasks.remove(taskItem);
       };
-        myApp.services.categories.updateAdd(taskItem.data.category);
+
+      taskItem.querySelector('.center').onclick = function() {
+        document.querySelector('#myNavigator')
+            .pushPage('html/details_task.html',
+                {
+                  animation: 'lift',
+                  data: {
+                    element: taskItem
+                  }
+                }
+            );
+      };
+
+      myApp.services.categories.updateAdd(taskItem.data.category);
 
       // Insert urgent tasks at the top and non urgent tasks at the bottom.
       var pendingList = document.querySelector('#pending-list');
@@ -68,6 +81,29 @@ myApp.services = {
           window.localStorage.removeItem(list.firstChild.data.title);
         }
       }
+    },
+
+    update: function(taskItem, data) {
+      if (data.title !== taskItem.data.title) {
+        // Update title view.
+        taskItem.querySelector('.center').innerHTML = data.title;
+      }
+
+      if (data.category !== taskItem.data.category) {
+        // Modify the item before updating categories.
+        taskItem.setAttribute('category', myApp.services.categories.parseId(data.category));
+        // Check if it's necessary to create new categories.
+        myApp.services.categories.updateAdd(data.category);
+        // Check if it's necessary to remove empty categories.
+        myApp.services.categories.updateRemove(taskItem.data.category);
+
+      }
+
+      // Add or remove the highlight.
+      taskItem.classList[data.highlight ? 'add' : 'remove']('highlight');
+
+      // Store the new data within the element.
+      taskItem.data = data;
     }
 
   },
