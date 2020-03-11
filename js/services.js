@@ -85,6 +85,7 @@ myApp.services = {
 
     update: function(taskItem, data) {
       if (data.title !== taskItem.data.title) {
+        window.localStorage.removeItem(taskItem.data.title);
         // Update title view.
         taskItem.querySelector('.center').innerHTML = data.title;
       }
@@ -104,6 +105,8 @@ myApp.services = {
 
       // Store the new data within the element.
       taskItem.data = data;
+
+      window.localStorage.setItem(data.title, taskItem);
     }
 
   },
