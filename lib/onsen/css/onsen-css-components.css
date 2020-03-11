@@ -392,7 +392,7 @@ h4, h5, h6 {
   box-shadow: 0 0 0 14px rgba(0, 0, 0, .12);
 }
 :checked + .switch--material__toggle > .switch--active__handle:before {
-  box-shadow: 0 0 0 14px alpha(#dc5236, 0.2);
+  box-shadow:0 0 0 14px alpha(#dc5236,.2)
 }
 .switch--material__touch {
   position: absolute;
