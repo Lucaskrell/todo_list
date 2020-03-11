@@ -20,7 +20,6 @@ document.addEventListener('init', function(event) {
         title: 'Bienvenue',
         category: '',
         description: 'Une appli de to-do liste.',
-        highlight: false,
         urgent: true
       });
       //for (var i=-1; i<localStorage.length; i++) {
