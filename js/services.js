@@ -50,10 +50,9 @@ myApp.services = {
 
     remove: function(taskItem) {
       taskItem.querySelector('.right').onclick = function(event) {
-        console.log(taskItem.parentElement.id);
         if (taskItem.parentElement.id === 'corb') {
           taskItem.removeEventListener('change', taskItem.data.onCheckboxChange);
-          window.localStorage.removeItem(taskItem.title);
+          window.localStorage.removeItem(taskItem.data.title);
           taskItem.remove();
         } else {
           taskItem.setAttribute('class', 'deleted-tasks');
@@ -66,6 +65,7 @@ myApp.services = {
       if(list.children.length > 0) {
         while (list.firstChild) {
           list.removeChild(list.firstChild);
+          window.localStorage.removeItem(list.firstChild.data.title);
         }
       }
     }
