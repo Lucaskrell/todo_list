@@ -12,6 +12,7 @@ myApp.services = {
     // Creates a new task and attaches it to the pending task list.
     create: function (data) {
       // Task item template.
+
       var taskItem = ons.createElement(
         //'<ons-list-item tappable category="' + myApp.services.categories.parseId(data.category)+ '">' +
         '<ons-list-item tappable category="' + data.category + '">' +
@@ -29,8 +30,6 @@ myApp.services = {
 
       // Store data within the element.
       taskItem.data = data;
-
-      window.localStorage.setItem(data.title, taskItem);
 
       taskItem.data.onCheckboxChange = function(event) {
         myApp.services.animators.swipe(taskItem, function() {
@@ -62,6 +61,8 @@ myApp.services = {
       // Insert urgent tasks at the top and non urgent tasks at the bottom.
       var pendingList = document.querySelector('#pending-list');
       pendingList.insertBefore(taskItem, taskItem.data.urgent ? pendingList.firstChild : null);
+
+      window.localStorage.setItem(data.title, JSON.stringify(data));
     },
 
     remove: function(taskItem) {
@@ -112,7 +113,7 @@ myApp.services = {
       // Store the new data within the element.
       taskItem.data = data;
 
-      window.localStorage.setItem(data.title, taskItem);
+      window.localStorage.setItem(data.title, JSON.stringify(data));
     }
 
   },

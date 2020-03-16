@@ -16,15 +16,19 @@ document.addEventListener('init', function(event) {
       && document.querySelector('#pendingTasksPage')
       && !document.querySelector('#pendingTasksPage ons-list-item')
     ) {
-      myApp.services.tasks.create({
+      /*myApp.services.tasks.create({
         title: 'Bienvenue',
         category: '',
         description: 'Une appli de to-do liste.',
         urgent: true
-      });
-      //for (var i=-1; i<localStorage.length; i++) {
-        //myApp.services.tasks.create(localStorage.getItem(localStorage.key(i)));
-      //}
+      });*/
+      /*for (var i=0; i<localStorage.length; i++) {
+        myApp.services.tasks.create(localStorage.getItem(localStorage.key(i)));
+      }*/
+      //Object.keys(window.localStorage).forEach(function(key){
+        //console.log(key);
+        //myApp.services.tasks.create(window.localStorage.getItem(key));
+      //});
     }
   }
 });
