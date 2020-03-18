@@ -25,10 +25,11 @@ document.addEventListener('init', function(event) {
       /*for (var i=0; i<localStorage.length; i++) {
         myApp.services.tasks.create(localStorage.getItem(localStorage.key(i)));
       }*/
-      //Object.keys(window.localStorage).forEach(function(key){
-        //console.log(key);
-        //myApp.services.tasks.create(window.localStorage.getItem(key));
-      //});
+      Object.keys(window.localStorage).forEach(function(key){
+        console.log(key);
+        console.log(window.localStorage.getItem(key));
+        myApp.services.tasks.create(window.localStorage.getItem(key));
+      });
     }
   }
 });
