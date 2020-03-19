@@ -62,7 +62,15 @@ myApp.services = {
       var pendingList = document.querySelector('#pending-list');
       pendingList.insertBefore(taskItem, taskItem.data.urgent ? pendingList.firstChild : null);
 
-      window.localStorage.setItem(data.title, JSON.stringify(data));
+      console.log(data);
+      console.log(data.title);
+
+      window.localStorage.setItem(data.title, JSON.stringify({
+        title: data.title,
+        category: data.category,
+        description: data.description,
+        urgent: data.urgent
+      }));
     },
 
     remove: function(taskItem) {
