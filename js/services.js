@@ -13,7 +13,7 @@ myApp.services = {
     create: function (data) {
       // Task item template.
 
-      var taskItem = ons.createElement(
+      let taskItem = ons.createElement(
         //'<ons-list-item tappable category="' + myApp.services.categories.parseId(data.category)+ '">' +
         '<ons-list-item tappable category="' + data.category + '">' +
         '<label class="left">' +
@@ -28,53 +28,41 @@ myApp.services = {
         '</ons-list-item>'
       );
 
-      // Store data within the element.
-      taskItem.data = data;
-
-      taskItem.data.onCheckboxChange = function(event) {
-        myApp.services.animators.swipe(taskItem, function() {
-          var listId = (taskItem.parentElement.id === 'pending-list' && event.target.checked) ? '#completed-list' : '#pending-list';
-          document.querySelector(listId).appendChild(taskItem);
-        });
-      };
-
-      taskItem.addEventListener('change', taskItem.data.onCheckboxChange);
-
-      taskItem.querySelector('.right').onclick = function() {
-        myApp.services.tasks.remove(taskItem);
-      };
-
-      taskItem.querySelector('.center').onclick = function() {
-        document.querySelector('#myNavigator')
-            .pushPage('html/details_task.html',
-                {
-                  animation: 'lift',
-                  data: {
-                    element: taskItem
-                  }
-                }
-            );
-      };
-
-      myApp.services.categories.updateAdd(taskItem.data.category);
-
-      // Insert urgent tasks at the top and non urgent tasks at the bottom.
-      var pendingList = document.querySelector('#pending-list');
-      pendingList.insertBefore(taskItem, taskItem.data.urgent ? pendingList.firstChild : null);
-
-      console.log(data);
-      console.log(data.title);
-
       window.localStorage.setItem(data.title, JSON.stringify({
         title: data.title,
         category: data.category,
         description: data.description,
-        urgent: data.urgent
+        urgent: data.urgent,
+        page : 'pending-list'
       }));
+
+      myApp.services.tasks.init(taskItem, data);
+    },
+
+    afficherListe: function(key) {
+      let data = JSON.parse(window.localStorage.getItem(key));
+
+      let taskItem = ons.createElement(
+          //'<ons-list-item tappable category="' + myApp.services.categories.parseId(data.category)+ '">' +
+          '<ons-list-item tappable category="' + data.category + '">' +
+          '<label class="left">' +
+          '<ons-checkbox></ons-checkbox>' +
+          '</label>' +
+          '<div class="center">' +
+          data.title +
+          '</div>' +
+          '<div class="right">' +
+          '<ons-icon style="color: grey; padding-left: 4px" icon="ion-ios-trash-outline, material:md-delete"></ons-icon>' +
+          '</div>' +
+          '</ons-list-item>'
+      );
+
+      myApp.services.tasks.init(taskItem, data);
     },
 
     remove: function(taskItem) {
-      taskItem.querySelector('.right').onclick = function(event) {
+      let data = taskItem.data;
+      taskItem.querySelector('.right').onclick = function() {
         if (taskItem.parentElement.id === 'corb') {
           taskItem.removeEventListener('change', taskItem.data.onCheckboxChange);
           window.localStorage.removeItem(taskItem.data.title);
@@ -85,6 +73,15 @@ myApp.services = {
         } else {
           taskItem.setAttribute('class', 'deleted-tasks');
           document.querySelector('#corb').appendChild(taskItem);
+          taskItem.data.page = 'corb';
+          window.localStorage.removeItem(data.title);
+          window.localStorage.setItem(data.title, JSON.stringify({
+            title: data.title,
+            category: data.category,
+            description: data.description,
+            urgent: data.urgent,
+            page : 'corb'
+          }));
         }
       }
     },
@@ -122,6 +119,45 @@ myApp.services = {
       taskItem.data = data;
 
       window.localStorage.setItem(data.title, JSON.stringify(data));
+    },
+
+    init: function(taskItem, data) {
+      // Store data within the element.
+      taskItem.data = data;
+
+      taskItem.data.onCheckboxChange = function(event) {
+        myApp.services.animators.swipe(taskItem, function() {
+          let listId = (taskItem.parentElement.id === 'pending-list' && event.target.checked) ? 'completed-list' : 'pending-list';
+          data.page = listId;
+          window.localStorage.removeItem(data.title);
+          window.localStorage.setItem(data.title, JSON.stringify(data));
+          document.querySelector('#'+data.page).appendChild(taskItem);
+        });
+      };
+
+      taskItem.addEventListener('change', taskItem.data.onCheckboxChange);
+
+      taskItem.querySelector('.right').onclick = function() {
+        myApp.services.tasks.remove(taskItem);
+      };
+
+      taskItem.querySelector('.center').onclick = function() {
+        document.querySelector('#myNavigator')
+            .pushPage('html/details_task.html',
+                {
+                  animation: 'lift',
+                  data: {
+                    element: taskItem
+                  }
+                }
+            );
+      };
+
+      myApp.services.categories.updateAdd(taskItem.data.category);
+
+      // Insert urgent tasks at the top and non urgent tasks at the bottom.
+      let pendingList = document.querySelector('#'+data.page);
+      pendingList.insertBefore(taskItem, taskItem.data.urgent ? pendingList.firstChild : null);
     }
 
   },
@@ -129,10 +165,10 @@ myApp.services = {
 
     // Creates a new category and attaches it to the custom category list.
     create: function(categoryLabel) {
-      var categoryId = myApp.services.categories.parseId(categoryLabel);
+      let categoryId = myApp.services.categories.parseId(categoryLabel);
 
       // Category item template.
-      var categoryItem = ons.createElement(
+      let categoryItem = ons.createElement(
         '<ons-list-item tappable category-id="' + categoryId + '">' +
           '<div class="left">' +
             '<ons-radio name="categoryGroup" input-id="radio-'  + categoryId + '"></ons-radio>' +
@@ -152,8 +188,8 @@ myApp.services = {
 
     // On task creation/update, updates the category list adding new categories if needed.
     updateAdd: function(categoryLabel) {
-      var categoryId = myApp.services.categories.parseId(categoryLabel);
-      var categoryItem = document.querySelector('#menuPage ons-list-item[category-id="' + categoryId + '"]');
+      let categoryId = myApp.services.categories.parseId(categoryLabel);
+      let categoryItem = document.querySelector('#menuPage ons-list-item[category-id="' + categoryId + '"]');
 
       if (!categoryItem) {
         // If the category doesn't exist already, create it.
@@ -163,8 +199,8 @@ myApp.services = {
 
     // On task deletion/update, updates the category list removing categories without tasks if needed.
     updateRemove: function(categoryLabel) {
-      var categoryId = myApp.services.categories.parseId(categoryLabel);
-      var categoryItem = document.querySelector('#tabbarPage ons-list-item[category="' + categoryId + '"]');
+      let categoryId = myApp.services.categories.parseId(categoryLabel);
+      let categoryItem = document.querySelector('#tabbarPage ons-list-item[category="' + categoryId + '"]');
 
       if (!categoryItem) {
         // If there are no tasks under this category, remove it.
@@ -183,14 +219,14 @@ myApp.services = {
 
     // Adds filtering functionality to a category item.
     bindOnCheckboxChange: function(categoryItem) {
-      var categoryId = categoryItem.getAttribute('category-id');
-      var allItems = categoryId === null;
+      let categoryId = categoryItem.getAttribute('category-id');
+      let allItems = categoryId === null;
 
       categoryItem.updateCategoryView = function() {
-        var query = '[category="' + (categoryId || '') + '"]';
+        let query = '[category="' + (categoryId || '') + '"]';
 
-        var taskItems = document.querySelectorAll('#tabbarPage ons-list-item');
-        for (var i = 0; i < taskItems.length; i++) {
+        let taskItems = document.querySelectorAll('#tabbarPage ons-list-item');
+        for (let i = 0; i < taskItems.length; i++) {
           taskItems[i].style.display = (allItems || taskItems[i].getAttribute('category') === categoryId) ? '' : 'none';
         }
       };
@@ -211,7 +247,7 @@ myApp.services = {
 
     // Swipe animation for task completion.
     swipe: function(listItem, callback) {
-      var animation = (listItem.parentElement.id === 'pending-list') ? 'animation-swipe-right' : 'animation-swipe-left';
+      let animation = (listItem.parentElement.id === 'pending-list') ? 'animation-swipe-right' : 'animation-swipe-left';
       listItem.classList.add('hide-children');
       listItem.classList.add(animation);
 

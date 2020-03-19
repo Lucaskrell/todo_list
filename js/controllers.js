@@ -46,7 +46,8 @@ myApp.controllers = {
                 title: titre,
                 category: page.querySelector('#category-input').value,
                 description: page.querySelector('#description-input').value,
-                urgent: page.querySelector('#urgent-input').checked
+                urgent: page.querySelector('#urgent-input').checked,
+                  page: 'pending-list'
               }
             );
             document.querySelector('#default-category-list ons-list-item ons-radio').checked = true;
@@ -78,7 +79,7 @@ myApp.controllers = {
   ///////////////////////////////
   detailsTaskPage: function(page) {
     // Get the element passed as argument to pushPage.
-    var element = page.data.element;
+    let element = page.data.element;
 
     // Fill the view with the stored data.
     page.querySelector('#title-input').value = element.data.title;
@@ -87,7 +88,7 @@ myApp.controllers = {
     page.querySelector('#urgent-input').checked = element.data.urgent;
 
     page.querySelector('[component="button/save-task"]').onclick = function() {
-      var newTitle = page.querySelector('#title-input').value;
+      let newTitle = page.querySelector('#title-input').value;
 
       if (newTitle) {
         // If input title is not empty, ask for confirmation before saving.
@@ -118,7 +119,7 @@ myApp.controllers = {
 
       } else {
         // Show alert if the input title is empty.
-        ons.notification.alert('You must provide a task title.');
+        ons.notification.alert('Vous devez entrer un titre.');
       }
     };
   }
